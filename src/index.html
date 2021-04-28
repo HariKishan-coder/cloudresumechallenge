@@ -26,6 +26,25 @@ function callbackFunction(xmlhttp)
 </script>
 </head>
 <body onload="getcount()">
+<script type="text/javascript" language="javascript">
+
+function getcount()
+{
+    URL = https://n11jap560e.execute-api.ap-southeast-2.amazonaws.com/Prod/activities/1;  //Your URL
+
+    var xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = callbackFunction(xmlhttp);
+    xmlhttp.open("GET", URL, false);
+    xmlhttp.setRequestHeader("Content-Type", "application/json");
+    xmlhttp.onreadystatechange = callbackFunction(xmlhttp);
+    alert(xmlhttp.responseText);
+    document.getElementById("profileviews").innerHTML = xmlhttp.statusText + ":" + xmlhttp.status + "<BR><textarea rows='100' cols='100'>" + xmlhttp.responseText + "</textarea>";
+}
+function callbackFunction(xmlhttp) 
+{
+    //alert(xmlhttp.responseXML);
+}
+
 <div id="header">
 <p id="name">Hari Kishan Punati</p>
          <a href="mailto:" target="_blank"><p id="email">hari.kishan.edu@gmail.com</p></a>
