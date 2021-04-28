@@ -1,38 +1,27 @@
-name: deploy
-on:
-  push:
-    branches: [master]
+name: CI
+on: [push]
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '2.7'
-    - name: Configure AWS credentials
+
+    # Remove this step if you're not using Jekyll or modify it
+    # if you're building your files with a different system
+
+    - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
-      with: 
+      with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    - name: Build submodules
-      run: |
-        sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
-        git submodule update --init --recursive
-    - name: Install dependencies
-      run: |
-        sudo apt-get install -qq pandoc
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    - name: Build website
-      run: |
-        pelican content
-    - name: Deploy to S3
-      run: |
-        aws s3 sync output/. s3://hariresumechallenge --acl public-read
-    - name: Invalidate Cloudfront cache
-      run: |
-        aws configure set preview.cloudfront true
-        aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+        aws-region: ap-southeast-2 # Change this to the location of your S3 Bucket
+
+    # Change ./_site/ to the location of your website in your repository,
+    # with Jekyll _site/ is the default location of the built files
+    - name: Deploy to S3 bucket
+      run: aws s3 sync ./src/ ${{ secrets.S3_BUCKET }} --delete
+
+    # Remove this step if you're not using CloudFront
+    - name: Invalidate CloudFront Objects
+      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
+
