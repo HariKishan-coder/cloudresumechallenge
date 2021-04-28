@@ -223,6 +223,8 @@
             var dev_env = false
 			var counter = 0
             if (dev_env == false) {
+			    headers.append('Access-Control-Allow-Origin', 'https://learncloudsolutionswithkishan.com');
+                headers.append('Access-Control-Allow-Credentials', 'true');
                 fetch("https://n11jap560e.execute-api.ap-southeast-2.amazonaws.com/Prod/activities/1")
                     .then(function (response) {
                         return response.json()
