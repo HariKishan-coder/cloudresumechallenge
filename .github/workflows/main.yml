@@ -24,5 +24,5 @@ jobs:
 
     # Remove this step if you're not using CloudFront
     - name: Invalidate CloudFront Objects
-      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DIST_ID }} --path "/*"
+      run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }} --path "/*"
 
