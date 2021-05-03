@@ -10,23 +10,7 @@
   
 </head>
 <body>
-<script>
-    var xhr = new XMLHttpRequest();
-
-    xhr.open('GET', 'https://kcjamzaa46.execute-api.ap-southeast-2.amazonaws.com/Prod/activities/1', true);
-
-    xhr.onload = function () {
-      if (xhr.readyState === xhr.DONE) {
-        if (xhr.status === 200) {
-          document.getElementById("counter").innerHTML = '&nbsp;&nbsp;' + xhr.responseText + ' views&nbsp;&nbsp;';
-
-        }
-      }
-    };
-
-    xhr.send(null);
-  </script>
-  
+ 
 
 <div id="header">
 <p id="name">Hari Kishan Punati</p>
