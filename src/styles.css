@@ -115,10 +115,10 @@ td
 {
     height: 5px;
     }
-.job-duration
+#job-duration
 {
     float:right;
-    }
+}
 #heading
 {
     font-weight:bold;
